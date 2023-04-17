@@ -1,0 +1,22 @@
+[
+    {
+        "name": "John Walker",
+        "email": "john@gmail.com",
+        "age": 21
+    },
+    {
+        "name": "Emily Prince",
+        "email": "emily@gmail.com",
+        "age": 19
+    },
+    {
+        "name": "Ananda Swarchtz",
+        "email": "as@gmail.com",
+        "age": 40
+    },
+    {
+        "name": "Paul",
+        "email": "paul@gmail.com",
+        "age": 100
+    }
+]
