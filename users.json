@@ -2,21 +2,31 @@
     {
         "name": "John Walker",
         "email": "john@gmail.com",
+        "password": "1234",
         "age": 21
     },
     {
         "name": "Emily Prince",
         "email": "emily@gmail.com",
+        "password": "0987",
         "age": 19
     },
     {
         "name": "Ananda Swarchtz",
         "email": "as@gmail.com",
+        "password": "7890",
         "age": 40
     },
     {
         "name": "Paul",
         "email": "paul@gmail.com",
+        "password": "4321",
         "age": 100
+    },
+    {
+        "name": "Jeferson",
+        "age": 40,
+        "email": "jeffinho@gmail.com",
+        "password": "2570"
     }
 ]
