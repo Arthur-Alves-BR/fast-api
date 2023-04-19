@@ -1,25 +1,37 @@
-from fastapi import APIRouter, status, HTTPException
+from sqlalchemy.orm import Session
+from fastapi import APIRouter, status, HTTPException, Depends
 
-from db import users, create_user
-from user.models import UserBase, UserIn
+from database import SessionLocal, engine
+
+from user import models, schemas, crud
+
+models.Base.metadata.create_all(bind=engine)
 
 user_router = APIRouter(prefix='/users')
 
 
+def get_db():
+    # Dependency
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
 @user_router.post('/')
-def post_users(user: UserIn) -> UserBase:
-    user = create_user(user)
-    return user
+def post_users(user: schemas.UserIn, db: Session = Depends(get_db)):
+    return crud.create_user(db, user)
 
 
 @user_router.get('/')
-def list_users() -> list[UserBase]:
-    return users
+def list_users(db: Session = Depends(get_db)) -> list[schemas.UserBase]:
+    return crud.get_users(db)
 
 
-@user_router.get('/{item_id}')
-def retrieve_user(item_id: int) -> UserBase:
-    try:
-        return users[item_id - 1]
-    except:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+@user_router.get('/{user_id}')
+def retrieve_user(user_id: int, db: Session = Depends(get_db)) -> schemas.UserBase:
+    user = crud.get_user(db, user_id)
+    if user:
+        return user
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
