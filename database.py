@@ -1,3 +1,5 @@
+from fastapi import Request
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -12,10 +14,10 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-def get_db():
+def get_db(request: Request):
     # Dependency
     db = SessionLocal()
     try:
-        yield db
+        request.state.db = db
     finally:
         db.close()
